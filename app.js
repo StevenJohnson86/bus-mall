@@ -23,9 +23,24 @@ var imgs = [['bag', 'img/bag.jpg'],
 ['water-can', 'img/water-can.jpg'],
 ['wine-glass', 'img/wine-glass.jpg']];
 
+var dupChk = [];
+// var shownCountSum = 0; NOT NECESSARY (yet) FOR SCOPE OF THIS PROJECT
+//
+// function shownSumr() {
+//
+//   if (shownCountSum === 20) {
+//     shownCountSum = 0;
+//   } else {
+//     shownCountSum = 0;
+//     for (var i = 0; i < imgs.length; i++){
+//       shownCountSum += imgs[i].shownCount;
+//     }
+//   }
+// }
+
 //--------------------constructor & prototypes------------------------------------
 
-function constImg(name, filePath) { //add html id?
+function ImgObj(name, filePath) { //add html id?
   this.name = name;
   this.filePath = filePath;
   this.shownCount = 0;
@@ -33,13 +48,40 @@ function constImg(name, filePath) { //add html id?
   //html id??
 }
 
+// ImgObj.prototype.imgShown = function() {  Won't counters be incremented by img render functions and event listener/handlers?
+//
+// }
+
 //--------------------------functions-------------------------------------------
 
-function initImgs() {
+function initImgs() {//instantializes img objects in array: imgs
   for (var i = 0; i < imgs.length; i++) {
-    imgs[i] = new constImg(imgs[i][0], imgs[i][1]);
+    imgs[i] = new ImgObj(imgs[i][0], imgs[i][1]);
   }
 }
+
+function randImgNum() { //returns a random number between 0 and 19 to function caller
+  var rand = Math.round(Math.random() * 19);
+  return rand;
+}
+
+function imgDupChk() {//checks img for duplicate in current set or previous set
+  while (dupChk.length < 6) {
+    var rand = randImgNum();
+    if (dupChk.includes(imgs[rand])) {
+    } else {
+      dupChk.push(imgs[rand]);
+    }
+  }
+}
+
+// function imgRender(imgs[?]) { NOT WORRYING ABOUT RENDERING IMGS YET
+//   var viewPort = document.getElementById('image-viewport');
+//   for ()
+//   var imgEl = document.createElement('img');
+//   imgEl.setAttribute('src', imgs[?].filePath)
+//
+// }
 
 //-----------------calls----------------------------------------------
 initImgs();

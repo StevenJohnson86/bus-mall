@@ -1,0 +1,9 @@
+* {
+  border: 1px solid grey;
+  margin: 0em;
+}
+
+#image-viewport img {
+  width: 33%;
+  
+}
