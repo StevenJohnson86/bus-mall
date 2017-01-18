@@ -32,23 +32,33 @@ var centerViewPort = document.getElementById('center-viewport');
 var rightViewPort = document.getElementById('right-viewport');
 var rsltViewPort = document.getElementById('result-viewport');
 
+var ctx = document.getElementById('study-results');
+
 var imgNames = [];
 var imgPaths = [];
 var imgClicks = [];
 var imgViews = [];
-// var shownCountSum = 0; Orig intent: ensure every product is shown before imgs repeat. NOT NECESSARY (yet) FOR SCOPE OF THIS PROJECT
-//
-// function shownSumr() {
-//
-//   if (shownCountSum === 20) {
-//     shownCountSum = 0;
-//   } else {
-//     shownCountSum = 0;
-//     for (var i = 0; i < imgs.length; i++){
-//       shownCountSum += imgs[i].shownCount;
-//     }
-//   }
-// }
+var imgData = [];
+
+var chartOpts = {
+  responsive: false,
+  scales: {
+    yAxes: [{
+      ticks: {
+        beginAtZero: true
+      }
+    }]
+  }
+};
+
+var chartData = {
+  labels: imgNames,
+  datasets: [{
+    label: 'Product received:' + imgClicks + ' clicks/ ' + imgViews + 'views. Desirability',
+    data: imgData,
+    backgroundColor: 'gray'
+  }]
+};
 
 //--------------------constructor & prototypes------------------------------------
 
@@ -116,7 +126,10 @@ function resultsGen(){
     imgPaths.push(imgs[i].filePath);
     imgClicks.push(imgs[i].clickCount);
     imgViews.push(imgs[i].shownCount);
+    var imgPct = imgs[i].clickCount / imgs[i].shownCount;
+    imgData.push(imgPct);
   }
+
 }
 
 function rmAndGenerate() {//fired by eventlisteners
@@ -132,14 +145,11 @@ function rmAndGenerate() {//fired by eventlisteners
 
   if (roundCount === 25) {
     resultsGen();
-    var ulEl = document.createElement('ul');
-    for (var i = 0; i < imgs.length; i++){
-      var liEl = document.createElement('li');
-      liEl.textContent = 'Image ' + imgNames[i] + ': ' + imgClicks[i] + ' clicks/ ' + imgViews[i] + ' times shown.';
-      ulEl.appendChild(liEl);
-    }
-    rsltViewPort.appendChild(ulEl);
-
+    var resultChart = new Chart(ctx, {
+      type: 'bar',
+      data: chartData,
+      options: chartOpts
+    });
   } else {
     dupChk.splice(0,3);
     imgIndex.splice(0,3);

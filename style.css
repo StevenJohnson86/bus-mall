@@ -31,3 +31,13 @@
 #right-viewport img {
   width: 33%;
 }
+
+#results-viewport {
+  width: 100%;
+  height: 100%
+}
+
+#study-results {
+  width: 85%;
+  height: 80%;
+}
