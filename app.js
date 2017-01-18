@@ -54,9 +54,14 @@ var chartOpts = {
 var chartData = {
   labels: imgNames,
   datasets: [{
-    label: 'Product received:' + imgClicks + ' clicks/ ' + imgViews + 'views. Desirability',
-    data: imgData,
-    backgroundColor: 'gray'
+    label: 'Clicks product received',
+    data: imgClicks,
+    backgroundColor: 'green'
+  },
+  {
+    label: 'Times product shown',
+    data: imgViews,
+    backgroundColor: 'blue'
   }]
 };
 
