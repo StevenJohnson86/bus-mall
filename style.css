@@ -3,7 +3,31 @@
   margin: 0em;
 }
 
-#image-viewport img {
-  width: 33%;
 
+
+#left-viewport {
+  width: 33%;
+  display: inline;
+}
+
+#left-viewport img {
+  width: 33%;
+}
+
+#center-viewport {
+  width: 33%;
+  display: inline;
+}
+
+#center-viewport img {
+  width: 33%;
+}
+
+#right-viewport {
+  width: 33%;
+  display: inline;
+}
+
+#right-viewport img {
+  width: 33%;
 }

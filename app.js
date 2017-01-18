@@ -26,13 +26,9 @@ var imgs = [['bag', 'img/bag.jpg'],
 var dupChk = [];
 var imgIndex = [];
 
-var leftImg = imgs[imgIndex[0]];
-var centerImg = imgs[imgIndex[1]];
-var rightImg = imgs[imgIndex[2]];
-
-
-
-var imgSel = document.getElementById('image-viewport');
+var leftViewPort = document.getElementById('left-viewport');
+var centerViewPort = document.getElementById('center-viewport');
+var rightViewPort = document.getElementById('right-viewport');
 // var shownCountSum = 0; NOT NECESSARY (yet) FOR SCOPE OF THIS PROJECT
 //
 // function shownSumr() {
@@ -91,29 +87,28 @@ function imgDupChk() {//checks img for duplicate in current set or previous set
 // }
 
 function imgRender() {//renders 3 images from dupChk Array to viewport
-  var viewPort = document.getElementById('image-viewport');
 
-  // var leftImg = imgs[imgIndex[0]];
-  // var centerImg = imgs[imgIndex[1]];
-  // var rightImg = imgs[imgIndex[2]];
+  var leftImg = imgs[imgIndex[0]];
+  var centerImg = imgs[imgIndex[1]];
+  var rightImg = imgs[imgIndex[2]];
 
   leftImg.shownCount += 1;
   var lImgEl = document.createElement('img');
   lImgEl.setAttribute('src', leftImg.filePath);
   lImgEl.setAttribute('id', leftImg.name);
-  viewPort.appendChild(lImgEl);
+  leftViewPort.appendChild(lImgEl);
 
   centerImg.shownCount += 1;
   var cImgEl = document.createElement('img');
   cImgEl.setAttribute('src', centerImg.filePath);
   cImgEl.setAttribute('id', centerImg.name);
-  viewPort.appendChild(cImgEl);
+  centerViewPort.appendChild(cImgEl);
 
   rightImg.shownCount += 1;
   var rImgEl = document.createElement('img');
   rImgEl.setAttribute('src', rightImg.filePath);
   rImgEl.setAttribute('id', rightImg.name);
-  viewPort.appendChild(rImgEl);
+  rightViewPort.appendChild(rImgEl);
 
 }
 
@@ -121,28 +116,31 @@ function imgRender() {//renders 3 images from dupChk Array to viewport
 // var leftImgEl = document.getElementById(leftImg.name);
 // var centerImgEl = document.getElementById(centerImg.name);
 // var rightImgEl = document.getElementById(rightImg.name);
-imgs[imgIndex[0]].name.addEventListener('click', function(event){
+leftViewPort.addEventListener('click', function(event){
   event.preventDefault();
   event.stopPropagation();
 
+  imgs[imgIndex[0]].clickCount += 1;
   dupChk.splice(0,3);
   imgIndex.splice(0,3);
   imgDupChk();
 },false);
 
-imgs[imgIndex[1]].name.addEventListener('click', function(event){
+centerViewPort.addEventListener('click', function(event){
   event.preventDefault();
   event.stopPropagation();
 
+  imgs[imgIndex[1]].clickCount += 1;
   dupChk.splice(0,3);
   imgIndex.splice(0,3);
   imgDupChk();
 },false);
 
-imgs[imgIndex[2]].name.addEventListener('click', function(event){
+rightViewPort.addEventListener('click', function(event){
   event.preventDefault();
   event.stopPropagation();
 
+  imgs[imgIndex[2]].clickCount += 1;
   dupChk.splice(0,3);
   imgIndex.splice(0,3);
   imgDupChk();
