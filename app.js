@@ -73,15 +73,18 @@ function imgDupChk() {//checks img for duplicate in current set or previous set
       dupChk.push(imgs[rand]);
     }
   }
+  //call imgRender?
 }
 
-// function imgRender(imgs[?]) { NOT WORRYING ABOUT RENDERING IMGS YET
-//   var viewPort = document.getElementById('image-viewport');
-//   for ()
-//   var imgEl = document.createElement('img');
-//   imgEl.setAttribute('src', imgs[?].filePath)
-//
-// }
+function imgRender() {
+  var viewPort = document.getElementById('image-viewport');
+  for (var i = 0; i < 3; i++) {
+    var imgEl = document.createElement('img');
+    imgEl.setAttribute('src', dupChk[0].filePath);
+    viewPort.appendChild(imgEl);
+    dupChk.splice(0,1);
+  }
+}
 
 //-----------------calls----------------------------------------------
 initImgs();
