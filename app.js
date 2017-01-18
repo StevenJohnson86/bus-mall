@@ -130,7 +130,7 @@ function rmAndGenerate() {//fired by eventlisteners
 
   roundCount += 1;
 
-  if (roundCount === 5) {
+  if (roundCount === 25) {
     resultsGen();
     var ulEl = document.createElement('ul');
     for (var i = 0; i < imgs.length; i++){
