@@ -4,6 +4,10 @@
 }
 
 #image-viewport img {
+  width: 100%;
+
+}
+
+#image-viewport button {
   width: 33%;
-  
 }
