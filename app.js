@@ -121,9 +121,7 @@ leftViewPort.addEventListener('click', function(event){
   event.stopPropagation();
 
   imgs[imgIndex[0]].clickCount += 1;
-  dupChk.splice(0,3);
-  imgIndex.splice(0,3);
-  imgDupChk();
+  rmAndGenerate();
 },false);
 
 centerViewPort.addEventListener('click', function(event){
@@ -131,9 +129,7 @@ centerViewPort.addEventListener('click', function(event){
   event.stopPropagation();
 
   imgs[imgIndex[1]].clickCount += 1;
-  dupChk.splice(0,3);
-  imgIndex.splice(0,3);
-  imgDupChk();
+  rmAndGenerate();
 },false);
 
 rightViewPort.addEventListener('click', function(event){
@@ -141,10 +137,21 @@ rightViewPort.addEventListener('click', function(event){
   event.stopPropagation();
 
   imgs[imgIndex[2]].clickCount += 1;
+  rmAndGenerate();
+},false);
+
+function rmAndGenerate() {
+  var currentLeftImg = document.getElementById(imgs[imgIndex[0]].name);
+  var currentCenterImg = document.getElementById(imgs[imgIndex[1]].name);
+  var currentRightImg = document.getElementById(imgs[imgIndex[2]].name);
+
+  leftViewPort.removeChild(currentLeftImg);
+  centerViewPort.removeChild(currentCenterImg);
+  rightViewPort.removeChild(currentRightImg);
   dupChk.splice(0,3);
   imgIndex.splice(0,3);
   imgDupChk();
-},false);
+}
 
 //-----------------calls----------------------------------------------
 initImgs();
