@@ -25,6 +25,14 @@ var imgs = [['bag', 'img/bag.jpg'],
 
 var dupChk = [];
 var imgIndex = [];
+
+var leftImg = imgs[imgIndex[0]];
+var centerImg = imgs[imgIndex[1]];
+var rightImg = imgs[imgIndex[2]];
+
+
+
+var imgSel = document.getElementById('image-viewport');
 // var shownCountSum = 0; NOT NECESSARY (yet) FOR SCOPE OF THIS PROJECT
 //
 // function shownSumr() {
@@ -85,45 +93,61 @@ function imgDupChk() {//checks img for duplicate in current set or previous set
 function imgRender() {//renders 3 images from dupChk Array to viewport
   var viewPort = document.getElementById('image-viewport');
 
-  var leftImg = imgs[imgIndex[0]];
+  // var leftImg = imgs[imgIndex[0]];
+  // var centerImg = imgs[imgIndex[1]];
+  // var rightImg = imgs[imgIndex[2]];
+
   leftImg.shownCount += 1;
-  var lButEl = document.createElement('button');
-  lButEl.setAttribute('type', 'button');
-  lButEl.setAttribute('name', 'buttonLeft');
-  lButEl.setAttribute('onclick', 'submit');
   var lImgEl = document.createElement('img');
   lImgEl.setAttribute('src', leftImg.filePath);
   lImgEl.setAttribute('id', leftImg.name);
-  lButEl.appendChild(lImgEl);
-  viewPort.appendChild(lButEl);
+  viewPort.appendChild(lImgEl);
 
-  var centerImg = imgs[imgIndex[1]];
   centerImg.shownCount += 1;
-  var cButEl = document.createElement('button');
-  cButEl.setAttribute('type', 'button');
-  cButEl.setAttribute('name', 'buttonCenter');
-  cButEl.setAttribute('onclick', 'submit');
   var cImgEl = document.createElement('img');
   cImgEl.setAttribute('src', centerImg.filePath);
   cImgEl.setAttribute('id', centerImg.name);
-  cButEl.appendChild(cImgEl);
-  viewPort.appendChild(cButEl);
+  viewPort.appendChild(cImgEl);
 
-  var rightImg = imgs[imgIndex[2]];
   rightImg.shownCount += 1;
-  var rButEl = document.createElement('button');
-  rButEl.setAttribute('type', 'button');
-  rButEl.setAttribute('name', 'buttonRight');
-  rButEl.setAttribute('onclick', 'submit');
   var rImgEl = document.createElement('img');
   rImgEl.setAttribute('src', rightImg.filePath);
   rImgEl.setAttribute('id', rightImg.name);
-  rButEl.appendChild(rImgEl);
-  viewPort.appendChild(rButEl);
+  viewPort.appendChild(rImgEl);
+
+}
+
+//----------------------Event Listeners and Handlers---------------------------------------
+// var leftImgEl = document.getElementById(leftImg.name);
+// var centerImgEl = document.getElementById(centerImg.name);
+// var rightImgEl = document.getElementById(rightImg.name);
+imgs[imgIndex[0]].name.addEventListener('click', function(event){
+  event.preventDefault();
+  event.stopPropagation();
 
   dupChk.splice(0,3);
   imgIndex.splice(0,3);
-}
+  imgDupChk();
+},false);
+
+imgs[imgIndex[1]].name.addEventListener('click', function(event){
+  event.preventDefault();
+  event.stopPropagation();
+
+  dupChk.splice(0,3);
+  imgIndex.splice(0,3);
+  imgDupChk();
+},false);
+
+imgs[imgIndex[2]].name.addEventListener('click', function(event){
+  event.preventDefault();
+  event.stopPropagation();
+
+  dupChk.splice(0,3);
+  imgIndex.splice(0,3);
+  imgDupChk();
+},false);
 
 //-----------------calls----------------------------------------------
 initImgs();
+imgDupChk();
