@@ -25,11 +25,18 @@ var imgs = [['bag', 'img/bag.jpg'],
 
 var dupChk = [];
 var imgIndex = [];
+var roundCount = 0;
 
 var leftViewPort = document.getElementById('left-viewport');
 var centerViewPort = document.getElementById('center-viewport');
 var rightViewPort = document.getElementById('right-viewport');
-// var shownCountSum = 0; NOT NECESSARY (yet) FOR SCOPE OF THIS PROJECT
+var rsltViewPort = document.getElementById('result-viewport');
+
+var imgNames = [];
+var imgPaths = [];
+var imgClicks = [];
+var imgViews = [];
+// var shownCountSum = 0; Orig intent: ensure every product is shown before imgs repeat. NOT NECESSARY (yet) FOR SCOPE OF THIS PROJECT
 //
 // function shownSumr() {
 //
@@ -45,17 +52,13 @@ var rightViewPort = document.getElementById('right-viewport');
 
 //--------------------constructor & prototypes------------------------------------
 
-function ImgObj(name, filePath) { //add html id?
+function ImgObj(name, filePath) {
   this.name = name;
   this.filePath = filePath;
   this.shownCount = 0;
   this.clickCount = 0; //number vs array? which should I use...
   //html id??
 }
-
-// ImgObj.prototype.imgShown = function() {  Won't counters be incremented by img render functions and event listener/handlers?
-//
-// }
 
 //--------------------------functions-------------------------------------------
 
@@ -82,10 +85,6 @@ function imgDupChk() {//checks img for duplicate in current set or previous set
   imgRender();
 }
 
-// function nameMatch(imgName) {
-//   return imgName === dupChk[0].name;
-// }
-
 function imgRender() {//renders 3 images from dupChk Array to viewport
 
   var leftImg = imgs[imgIndex[0]];
@@ -109,7 +108,43 @@ function imgRender() {//renders 3 images from dupChk Array to viewport
   rImgEl.setAttribute('src', rightImg.filePath);
   rImgEl.setAttribute('id', rightImg.name);
   rightViewPort.appendChild(rImgEl);
+}
 
+function resultsGen(){
+  for (var i = 0; i < imgs.length; i++){
+    imgNames.push(imgs[i].name);
+    imgPaths.push(imgs[i].filePath);
+    imgClicks.push(imgs[i].clickCount);
+    imgViews.push(imgs[i].shownCount);
+  }
+}
+
+function rmAndGenerate() {//fired by eventlisteners
+  var currentLeftImg = document.getElementById(imgs[imgIndex[0]].name);
+  var currentCenterImg = document.getElementById(imgs[imgIndex[1]].name);
+  var currentRightImg = document.getElementById(imgs[imgIndex[2]].name);
+
+  leftViewPort.removeChild(currentLeftImg);
+  centerViewPort.removeChild(currentCenterImg);
+  rightViewPort.removeChild(currentRightImg);
+
+  roundCount += 1;
+
+  if (roundCount === 5) {
+    resultsGen();
+    var ulEl = document.createElement('ul');
+    for (var i = 0; i < imgs.length; i++){
+      var liEl = document.createElement('li');
+      liEl.textContent = 'Image ' + imgNames[i] + ': ' + imgClicks[i] + ' clicks/ ' + imgViews[i] + ' times shown.';
+      ulEl.appendChild(liEl);
+    }
+    rsltViewPort.appendChild(ulEl);
+
+  } else {
+    dupChk.splice(0,3);
+    imgIndex.splice(0,3);
+    imgDupChk();
+  }
 }
 
 //----------------------Event Listeners and Handlers---------------------------------------
@@ -139,19 +174,6 @@ rightViewPort.addEventListener('click', function(event){
   imgs[imgIndex[2]].clickCount += 1;
   rmAndGenerate();
 },false);
-
-function rmAndGenerate() {
-  var currentLeftImg = document.getElementById(imgs[imgIndex[0]].name);
-  var currentCenterImg = document.getElementById(imgs[imgIndex[1]].name);
-  var currentRightImg = document.getElementById(imgs[imgIndex[2]].name);
-
-  leftViewPort.removeChild(currentLeftImg);
-  centerViewPort.removeChild(currentCenterImg);
-  rightViewPort.removeChild(currentRightImg);
-  dupChk.splice(0,3);
-  imgIndex.splice(0,3);
-  imgDupChk();
-}
 
 //-----------------calls----------------------------------------------
 initImgs();
