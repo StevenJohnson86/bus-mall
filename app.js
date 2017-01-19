@@ -148,7 +148,7 @@ function rmAndGenerate() {//fired by eventlisteners
 
   roundCount += 1;
 
-  if (roundCount === 10) {
+  if (roundCount === 25) {
     resultsGen();
     var resultChart = new Chart(ctx, {
       type: 'bar',

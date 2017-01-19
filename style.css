@@ -10,15 +10,16 @@
 }
 
 h1, p {
+  width: auto;
   text-align: center;
-  margin: 3% 10%;
+  margin: 20px 30px 10px 30px;
 }
 
 #begin-button {
   text-align: center;
   width: 85px;
-  position: absolute;
-  top: 10%;
+  position: relative;
+  top: 15%;
   left: 45%;
 }
 
@@ -33,34 +34,13 @@ h1, p {
   border: 1px solid black;
 }
 
-/*#center-viewport {
-  width: 33%;
+/*#results-viewport {
 
-  display: inline;
 }*/
-
-/*#center-viewport img {
-  width: 33%;
-}*/
-
-/*#right-viewport {
-  width: 33%;
-  display: inline;
-}*/
-
-/*#right-viewport img {
-  width: 33%;
-}*/
-
-#results-viewport {
-
-}
 
 #study-results {
   width: 800px;
   height: 600px;
-
   position: relative;
-  left: 20%;
-
+  left: 14%;
 }
