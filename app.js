@@ -32,13 +32,15 @@ var centerViewPort = document.getElementById('center-viewport');
 var rightViewPort = document.getElementById('right-viewport');
 var rsltViewPort = document.getElementById('result-viewport');
 
-var ctx = document.getElementById('study-results');
+var ctx = document.getElementById('study-results').getContext('2d');
 
 var imgNames = [];
 var imgPaths = [];
 var imgClicks = [];
 var imgViews = [];
 var imgData = [];
+
+//---------------------------chart vars-----------------------------------------
 
 var chartOpts = {
   responsive: false,
@@ -71,8 +73,7 @@ function ImgObj(name, filePath) {
   this.name = name;
   this.filePath = filePath;
   this.shownCount = 0;
-  this.clickCount = 0; //number vs array? which should I use...
-  //html id??
+  this.clickCount = 0;
 }
 
 //--------------------------functions-------------------------------------------
@@ -134,7 +135,6 @@ function resultsGen(){
     var imgPct = imgs[i].clickCount / imgs[i].shownCount;
     imgData.push(imgPct);
   }
-
 }
 
 function rmAndGenerate() {//fired by eventlisteners
@@ -148,7 +148,7 @@ function rmAndGenerate() {//fired by eventlisteners
 
   roundCount += 1;
 
-  if (roundCount === 25) {
+  if (roundCount === 10) {
     resultsGen();
     var resultChart = new Chart(ctx, {
       type: 'bar',
@@ -163,9 +163,7 @@ function rmAndGenerate() {//fired by eventlisteners
 }
 
 //----------------------Event Listeners and Handlers---------------------------------------
-// var leftImgEl = document.getElementById(leftImg.name);
-// var centerImgEl = document.getElementById(centerImg.name);
-// var rightImgEl = document.getElementById(rightImg.name);
+
 leftViewPort.addEventListener('click', function(event){
   event.preventDefault();
   event.stopPropagation();
