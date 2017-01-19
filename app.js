@@ -164,6 +164,22 @@ function rmAndGenerate() {//fired by eventlisteners
 
 //----------------------Event Listeners and Handlers---------------------------------------
 
+var beginButton = document.getElementById('begin-button');
+
+beginButton.addEventListener('click', function(event){
+  event.preventDefault();
+  event.stopPropagation();
+  var viewPort = document.getElementById('viewport');
+  var welcome = document.getElementById('welcome');
+  var instructions = document.getElementById('instructions');
+  viewPort.removeChild(welcome);
+  viewPort.removeChild(instructions);
+  viewPort.removeChild(beginButton);
+
+  initImgs();
+  imgDupChk();
+},false);
+
 leftViewPort.addEventListener('click', function(event){
   event.preventDefault();
   event.stopPropagation();
@@ -189,5 +205,5 @@ rightViewPort.addEventListener('click', function(event){
 },false);
 
 //-----------------calls----------------------------------------------
-initImgs();
-imgDupChk();
+// initImgs();
+// imgDupChk();
