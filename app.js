@@ -33,6 +33,7 @@ var rightViewPort = document.getElementById('right-viewport');
 var rsltViewPort = document.getElementById('result-viewport');
 
 var ctx = document.getElementById('study-results').getContext('2d');
+var ctx2 = document.getElementById('study-results-pct').getContext('2d');
 
 var imgNames = [];
 var imgPaths = [];
@@ -41,7 +42,7 @@ var imgViews = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 //var imgClicks = [];
 //var imgViews = [];
 
-var imgData = []; //not used with current chart
+var imgPct = [];
 
 //---------------------------chart vars-----------------------------------------
 
@@ -138,8 +139,8 @@ function resultsGen(){
     imgPaths.push(imgs[i].filePath);
     imgClicks.splice(i, 1, clickSum);
     imgViews.splice(i, 1, viewSum);
-    // var imgPct = imgs[i].clickCount / imgs[i].shownCount;
-    // imgData.push(imgPct);
+    var imgPcts = imgClicks[i] / imgViews[i];
+    imgPct.push(imgPcts);
   }
   persistToLocalStorage();
 }
@@ -160,7 +161,7 @@ function rmAndGenerate() {//fired by eventlisteners
 
   roundCount += 1;
 
-  if (roundCount === 25) {
+  if (roundCount === 10) {
     resultsGen();//updates result arrays for chart data content
     var resultChart = new Chart(ctx, {
       type: 'bar',
@@ -188,6 +189,29 @@ function rmAndGenerate() {//fired by eventlisteners
         }
       }
     });
+
+    var pctChart = new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: imgNames,
+        datasets: [{
+          label: 'Picked when viewed percentage',
+          data: imgPct,
+          backgroundColor: 'green'
+        }]
+      },
+      options: {
+        responsive: false,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+
   } else {
     dupChk.splice(0,3);
     imgIndex.splice(0,3);
