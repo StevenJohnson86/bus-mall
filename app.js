@@ -36,36 +36,39 @@ var ctx = document.getElementById('study-results').getContext('2d');
 
 var imgNames = [];
 var imgPaths = [];
-var imgClicks = [];
-var imgViews = [];
-var imgData = [];
+var imgClicks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var imgViews = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+//var imgClicks = [];
+//var imgViews = [];
+
+var imgData = []; //not used with current chart
 
 //---------------------------chart vars-----------------------------------------
 
-var chartOpts = {
-  responsive: false,
-  scales: {
-    yAxes: [{
-      ticks: {
-        beginAtZero: true
-      }
-    }]
-  }
-};
-
-var chartData = {
-  labels: imgNames,
-  datasets: [{
-    label: 'Clicks product received',
-    data: imgClicks,
-    backgroundColor: 'green'
-  },
-  {
-    label: 'Times product shown',
-    data: imgViews,
-    backgroundColor: 'blue'
-  }]
-};
+// var chartOpts = {
+//   responsive: false,
+//   scales: {
+//     yAxes: [{
+//       ticks: {
+//         beginAtZero: true
+//       }
+//     }]
+//   }
+// };
+//
+// var chartData = {
+//   labels: imgNames,
+//   datasets: [{
+//     label: 'Clicks product received',
+//     data: imgClicks,
+//     backgroundColor: 'green'
+//   },
+//   {
+//     label: 'Times product shown',
+//     data: imgViews,
+//     backgroundColor: 'blue'
+//   }]
+// };
 
 //--------------------constructor & prototypes------------------------------------
 
@@ -128,13 +131,22 @@ function imgRender() {//renders 3 images from dupChk Array to viewport
 
 function resultsGen(){
   for (var i = 0; i < imgs.length; i++){
+    var clickSum = imgClicks[i] + imgs[i].clickCount;
+    var viewSum = imgViews[i] + imgs[i].shownCount;
+
     imgNames.push(imgs[i].name);
     imgPaths.push(imgs[i].filePath);
-    imgClicks.push(imgs[i].clickCount);
-    imgViews.push(imgs[i].shownCount);
-    var imgPct = imgs[i].clickCount / imgs[i].shownCount;
-    imgData.push(imgPct);
+    imgClicks.splice(i, 1, clickSum);
+    imgViews.splice(i, 1, viewSum);
+    // var imgPct = imgs[i].clickCount / imgs[i].shownCount;
+    // imgData.push(imgPct);
   }
+  persistToLocalStorage();
+}
+
+function persistToLocalStorage() {
+  localStorage.imgClicks = JSON.stringify(imgClicks);
+  localStorage.imgViews = JSON.stringify(imgViews);
 }
 
 function rmAndGenerate() {//fired by eventlisteners
@@ -148,12 +160,33 @@ function rmAndGenerate() {//fired by eventlisteners
 
   roundCount += 1;
 
-  if (roundCount === 25) {
-    resultsGen();
+  if (roundCount === 10) {
+    resultsGen();//updates result arrays for chart data content
     var resultChart = new Chart(ctx, {
       type: 'bar',
-      data: chartData,
-      options: chartOpts
+      data: {
+        labels: imgNames,
+        datasets: [{
+          label: 'Clicks product received',
+          data: imgClicks,
+          backgroundColor: 'green'
+        },
+        {
+          label: 'Times product shown',
+          data: imgViews,
+          backgroundColor: 'blue'
+        }]
+      },
+      options: {
+        responsive: false,
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
     });
   } else {
     dupChk.splice(0,3);
@@ -169,15 +202,19 @@ var beginButton = document.getElementById('begin-button');
 beginButton.addEventListener('click', function(event){
   event.preventDefault();
   event.stopPropagation();
+
   var viewPort = document.getElementById('viewport');
   var welcome = document.getElementById('welcome');
   var instructions = document.getElementById('instructions');
+
   viewPort.removeChild(welcome);
   viewPort.removeChild(instructions);
   viewPort.removeChild(beginButton);
 
   initImgs();
   imgDupChk();
+  imgClicks = JSON.parse(localStorage.imgClicks);
+  imgViews = JSON.parse(localStorage.imgViews);
 },false);
 
 leftViewPort.addEventListener('click', function(event){
@@ -203,7 +240,3 @@ rightViewPort.addEventListener('click', function(event){
   imgs[imgIndex[2]].clickCount += 1;
   rmAndGenerate();
 },false);
-
-//-----------------calls----------------------------------------------
-// initImgs();
-// imgDupChk();
