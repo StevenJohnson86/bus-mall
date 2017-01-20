@@ -2,6 +2,7 @@
   /*border: 1px solid grey;*/
   margin: 0em;
   width: 100%;
+  background-color: #16e5c9;
 }
 
 #viewport {
@@ -15,11 +16,15 @@ h1, p {
   width: auto;
   text-align: center;
   margin: 20px 30px 10px 30px;
+  font-family: 'Quicksand', sans-serif;
 }
+
+
 
 #begin-button {
   text-align: center;
   width: 85px;
+  background-color: #e209b3;
 }
 
 #left-viewport, #center-viewport, #right-viewport {
@@ -32,6 +37,7 @@ h1, p {
   width: 250px;
   height: 250px;
   border: 1px solid black;
+  border-radius: 4px;
 }
 
 #results-viewport {
@@ -43,6 +49,4 @@ h1, p {
   width: 800px;
   height: 400px;
   margin: 5% 20%;
-
-
 }
