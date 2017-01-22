@@ -39,37 +39,8 @@ var imgNames = [];
 var imgPaths = [];
 var imgClicks = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var imgViews = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-//var imgClicks = [];
-//var imgViews = [];
 
 var imgPct = [];
-
-//---------------------------chart vars-----------------------------------------
-
-// var chartOpts = {
-//   responsive: false,
-//   scales: {
-//     yAxes: [{
-//       ticks: {
-//         beginAtZero: true
-//       }
-//     }]
-//   }
-// };
-//
-// var chartData = {
-//   labels: imgNames,
-//   datasets: [{
-//     label: 'Clicks product received',
-//     data: imgClicks,
-//     backgroundColor: 'green'
-//   },
-//   {
-//     label: 'Times product shown',
-//     data: imgViews,
-//     backgroundColor: 'blue'
-//   }]
-// };
 
 //--------------------constructor & prototypes------------------------------------
 
